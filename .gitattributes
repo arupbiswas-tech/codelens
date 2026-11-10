@@ -1,0 +1,5 @@
+# Keep line endings as LF in the repository (and on checkout) so the Makefile, Dockerfile and
+# shell commands work the same on Windows, macOS, Linux and in CI.
+* text=auto eol=lf
+*.png binary
+*.gif binary

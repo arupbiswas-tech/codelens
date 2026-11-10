@@ -1,0 +1,52 @@
+{
+  "_about": "Example inputs for the UI. The diffs are copied from eval/review_cases.json (real git diffs of one-line mutations).",
+  "questions": {
+    "kennethreitz/records": [
+      "How does the library run a SQL query and return rows?",
+      "What does RecordCollection.one do when the query returns more than one row?",
+      "Which database does the command line tool use if I do not pass --url?",
+      "How does Records support asynchronous queries with asyncio?"
+    ],
+    "pallets/itsdangerous": [
+      "How does the library check whether a timestamped signature has expired?",
+      "How is the signing key derived from the secret key?",
+      "How does the URL-safe serializer compress its data?",
+      "How does the library send signed confirmation emails over SMTP?"
+    ],
+    "arupbiswas-tech/workout-plan-generator": [
+      "Where are the user's inputs checked before a plan is generated?",
+      "What happens when the Groq API rate limit is reached?",
+      "How does the application store user accounts and passwords in a database?"
+    ],
+    "arupbiswas-tech/my-portfolio": [
+      "How is the contact form validated?",
+      "Which sections are linked from the navigation bar?"
+    ]
+  },
+  "diffs": [
+    {
+      "id": "rec-scalar",
+      "repo": "kennethreitz/records",
+      "label": "records: scalar() returns the second column (injected bug)",
+      "diff": "diff --git a/records.py b/records.py\nindex b5b6766..f3a4f1d 100644\n--- a/records.py\n+++ b/records.py\n@@ -252,7 +252,7 @@ class RecordCollection(object):\n     def scalar(self, default=None):\n         \"\"\"Returns the first column of the first row, or `default`.\"\"\"\n         row = self.one()\n-        return row[0] if row else default\n+        return row[1] if row else default\n \n \n class Database(object):\n"
+    },
+    {
+      "id": "rec-sqli",
+      "repo": "kennethreitz/records",
+      "label": "records: SQL built by string formatting (injected bug)",
+      "diff": "diff --git a/records.py b/records.py\nindex b5b6766..2710601 100644\n--- a/records.py\n+++ b/records.py\n@@ -379,7 +379,7 @@ class Connection(object):\n \n         # Execute the given query.\n         cursor = self._conn.execute(\n-            text(query).bindparams(**params)\n+            text(query.format(**params))\n         )  # TODO: PARAMS GO HERE\n \n         # Row-by-row Record generator.\n"
+    },
+    {
+      "id": "itd-expiry",
+      "repo": "pallets/itsdangerous",
+      "label": "itsdangerous: expiry check inverted (injected bug)",
+      "diff": "diff --git a/src/itsdangerous/timed.py b/src/itsdangerous/timed.py\nindex 52deeea..f2745d1 100644\n--- a/src/itsdangerous/timed.py\n+++ b/src/itsdangerous/timed.py\n@@ -138,7 +138,7 @@ class TimestampSigner(Signer):\n         if max_age is not None:\n             age = self.get_timestamp() - ts_int\n \n-            if age > max_age:\n+            if age < max_age:\n                 raise SignatureExpired(\n                     f\"Signature age {age} > {max_age} seconds\",\n                     payload=value,\n"
+    },
+    {
+      "id": "itd-clean",
+      "repo": "pallets/itsdangerous",
+      "label": "itsdangerous: docstring reworded (harmless change)",
+      "diff": "diff --git a/src/itsdangerous/encoding.py b/src/itsdangerous/encoding.py\nindex f5ca80f..356e220 100644\n--- a/src/itsdangerous/encoding.py\n+++ b/src/itsdangerous/encoding.py\n@@ -18,8 +18,8 @@ def want_bytes(\n \n \n def base64_encode(string: str | bytes) -> bytes:\n-    \"\"\"Base64 encode a string of bytes or text. The resulting bytes are\n-    safe to use in URLs.\n+    \"\"\"Encode a string of bytes or text as URL-safe base64 without padding. The\n+    result can be used in URLs.\n     \"\"\"\n     string = want_bytes(string)\n     return base64.urlsafe_b64encode(string).rstrip(b\"=\")\n"
+    }
+  ]
+}

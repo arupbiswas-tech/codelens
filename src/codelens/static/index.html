@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CodeLens</title>
+  <meta name="description" content="Ask questions about a codebase with file:line citations, and review pull requests.">
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-row">
+      <div>
+        <h1>CodeLens</h1>
+        <p class="tagline">Ask a codebase questions. Review a pull request. Every answer points at the code.</p>
+      </div>
+      <p id="status" class="status" role="status" aria-live="polite">Checking the server...</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="tabs" role="tablist" aria-label="Sections">
+      <button class="tab" role="tab" id="tab-repos" aria-controls="panel-repos" aria-selected="true">Repositories</button>
+      <button class="tab" role="tab" id="tab-ask" aria-controls="panel-ask" aria-selected="false" tabindex="-1">Ask</button>
+      <button class="tab" role="tab" id="tab-review" aria-controls="panel-review" aria-selected="false" tabindex="-1">Review</button>
+    </div>
+
+    <!-- Repositories -->
+    <section class="panel" id="panel-repos" role="tabpanel" aria-labelledby="tab-repos">
+      <h2>Index a repository</h2>
+      <p class="hint">Public GitHub repositories only. Indexing clones the repo, splits it into chunks and embeds them. Running it again only re-embeds what changed.</p>
+      <form id="index-form" class="row">
+        <label class="grow">
+          <span class="label">GitHub URL</span>
+          <input id="index-url" type="url" required placeholder="https://github.com/owner/repo" autocomplete="off">
+        </label>
+        <button type="submit" class="primary" id="index-button">Index</button>
+      </form>
+      <div id="index-result" class="result" aria-live="polite"></div>
+
+      <h2>Indexed repositories</h2>
+      <div id="repo-list" class="repo-list"></div>
+    </section>
+
+    <!-- Ask -->
+    <section class="panel" id="panel-ask" role="tabpanel" aria-labelledby="tab-ask" hidden>
+      <h2>Ask a question</h2>
+      <form id="ask-form">
+        <label>
+          <span class="label">Repository</span>
+          <select id="ask-repo" required></select>
+        </label>
+        <label>
+          <span class="label">Question</span>
+          <textarea id="ask-question" rows="3" required maxlength="1000" placeholder="Where is authentication handled?"></textarea>
+        </label>
+        <div class="chips" id="ask-examples" aria-label="Example questions"></div>
+        <button type="submit" class="primary" id="ask-button">Ask</button>
+      </form>
+      <div id="ask-result" class="result" aria-live="polite"></div>
+    </section>
+
+    <!-- Review -->
+    <section class="panel" id="panel-review" role="tabpanel" aria-labelledby="tab-review" hidden>
+      <h2>Review a pull request</h2>
+      <p class="hint">The repository must be indexed first: the reviewer uses its code as context. Comments only attach to lines the pull request added.</p>
+      <form id="review-form">
+        <fieldset class="modes">
+          <legend class="label">What to review</legend>
+          <label class="inline"><input type="radio" name="review-mode" value="url" checked> Pull request URL</label>
+          <label class="inline"><input type="radio" name="review-mode" value="diff"> Paste a diff</label>
+        </fieldset>
+
+        <label id="review-url-field">
+          <span class="label">Pull request URL</span>
+          <input id="review-url" type="url" placeholder="https://github.com/owner/repo/pull/7" autocomplete="off">
+        </label>
+
+        <div id="review-diff-fields" hidden>
+          <label>
+            <span class="label">Repository</span>
+            <select id="review-repo"></select>
+          </label>
+          <label>
+            <span class="label">Unified diff</span>
+            <textarea id="review-diff" rows="10" spellcheck="false" placeholder="diff --git a/app.py b/app.py ..."></textarea>
+          </label>
+          <label>
+            <span class="label">Or load an example (a real diff with one injected bug, or a harmless change)</span>
+            <select id="review-examples"></select>
+          </label>
+        </div>
+
+        <button type="submit" class="primary" id="review-button">Review</button>
+      </form>
+      <div id="review-result" class="result" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="wrap site-footer">
+    <p>Answers come from retrieved code, and references the model invents are removed. See <a href="/docs">the API docs</a>.</p>
+  </footer>
+</body>
+</html>

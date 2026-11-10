@@ -1,0 +1,763 @@
+{
+  "retrieval": {
+    "vector": {
+      "hit@1": 0.46153846153846156,
+      "hit@3": 0.6153846153846154,
+      "hit@6": 0.9230769230769231,
+      "hit@10": 1.0,
+      "mrr": 0.5988705738705739
+    },
+    "keyword": {
+      "hit@1": 0.34615384615384615,
+      "hit@3": 0.6153846153846154,
+      "hit@6": 0.7307692307692307,
+      "hit@10": 0.7692307692307693,
+      "mrr": 0.511904761904762
+    },
+    "hybrid": {
+      "hit@1": 0.5,
+      "hit@3": 0.7307692307692307,
+      "hit@6": 0.8461538461538461,
+      "hit@10": 0.8846153846153846,
+      "mrr": 0.6323717948717948
+    },
+    "hybrid+rerank": {
+      "hit@1": 0.4230769230769231,
+      "hit@3": 0.7307692307692307,
+      "hit@6": 0.8846153846153846,
+      "hit@10": 0.9230769230769231,
+      "mrr": 0.6022435897435897
+    },
+    "pool": {
+      "hit@20": 0.9230769230769231,
+      "mrr": 0.634775641025641
+    }
+  },
+  "retrieval_ranks": {
+    "vector": {
+      "wpg-01": 1,
+      "wpg-02": 3,
+      "wpg-03": 1,
+      "wpg-04": 3,
+      "wpg-05": 3,
+      "wpg-06": 4,
+      "wpg-07": 1,
+      "por-01": 1,
+      "por-02": 5,
+      "por-03": 1,
+      "por-04": 4,
+      "rec-01": 1,
+      "rec-02": 1,
+      "rec-03": 4,
+      "rec-04": 1,
+      "rec-05": 9,
+      "rec-06": 6,
+      "rec-07": 5,
+      "rec-08": 1,
+      "itd-01": 7,
+      "itd-02": 1,
+      "itd-03": 4,
+      "itd-04": 4,
+      "itd-05": 1,
+      "itd-06": 2,
+      "itd-07": 1
+    },
+    "keyword": {
+      "wpg-01": 7,
+      "wpg-02": 1,
+      "wpg-03": 2,
+      "wpg-04": 1,
+      "wpg-05": 2,
+      "wpg-06": 1,
+      "wpg-07": 1,
+      "por-01": 2,
+      "por-02": 2,
+      "por-03": 1,
+      "por-04": null,
+      "rec-01": 1,
+      "rec-02": 4,
+      "rec-03": 1,
+      "rec-04": null,
+      "rec-05": null,
+      "rec-06": null,
+      "rec-07": null,
+      "rec-08": 2,
+      "itd-01": 2,
+      "itd-02": 1,
+      "itd-03": 4,
+      "itd-04": null,
+      "itd-05": 6,
+      "itd-06": 2,
+      "itd-07": 1
+    },
+    "hybrid": {
+      "wpg-01": 3,
+      "wpg-02": 1,
+      "wpg-03": 1,
+      "wpg-04": 1,
+      "wpg-05": 1,
+      "wpg-06": 1,
+      "wpg-07": 1,
+      "por-01": 1,
+      "por-02": 2,
+      "por-03": 1,
+      "por-04": 4,
+      "rec-01": 1,
+      "rec-02": 2,
+      "rec-03": 2,
+      "rec-04": 3,
+      "rec-05": null,
+      "rec-06": null,
+      "rec-07": 8,
+      "rec-08": 1,
+      "itd-01": 1,
+      "itd-02": 1,
+      "itd-03": 5,
+      "itd-04": null,
+      "itd-05": 5,
+      "itd-06": 2,
+      "itd-07": 1
+    },
+    "hybrid+rerank": {
+      "wpg-01": 4,
+      "wpg-02": 1,
+      "wpg-03": 1,
+      "wpg-04": 1,
+      "wpg-05": 2,
+      "wpg-06": 2,
+      "wpg-07": 1,
+      "por-01": 1,
+      "por-02": 2,
+      "por-03": 1,
+      "por-04": 3,
+      "rec-01": 1,
+      "rec-02": 8,
+      "rec-03": 1,
+      "rec-04": 1,
+      "rec-05": null,
+      "rec-06": null,
+      "rec-07": 6,
+      "rec-08": 1,
+      "itd-01": 5,
+      "itd-02": 2,
+      "itd-03": 3,
+      "itd-04": 4,
+      "itd-05": 2,
+      "itd-06": 2,
+      "itd-07": 1
+    },
+    "pool": {
+      "wpg-01": 3,
+      "wpg-02": 1,
+      "wpg-03": 1,
+      "wpg-04": 1,
+      "wpg-05": 1,
+      "wpg-06": 1,
+      "wpg-07": 1,
+      "por-01": 1,
+      "por-02": 2,
+      "por-03": 1,
+      "por-04": 4,
+      "rec-01": 1,
+      "rec-02": 2,
+      "rec-03": 2,
+      "rec-04": 3,
+      "rec-05": null,
+      "rec-06": null,
+      "rec-07": 8,
+      "rec-08": 1,
+      "itd-01": 1,
+      "itd-02": 1,
+      "itd-03": 5,
+      "itd-04": 16,
+      "itd-05": 5,
+      "itd-06": 2,
+      "itd-07": 1
+    }
+  },
+  "answers": {
+    "answerable": 26,
+    "false_refusals": 0,
+    "with_citation": 25,
+    "correct_citation": 21,
+    "ungrounded_citations": 6,
+    "faithfulness": 0.968,
+    "judged": 26,
+    "judge_failed": 0,
+    "correct_yes": 25,
+    "correct_partial": 1,
+    "correct_no": 0,
+    "unanswerable": 3,
+    "correct_refusals": 3,
+    "errors": 0,
+    "latency_p50_s": 18.12
+  },
+  "answer_records": [
+    {
+      "question_id": "wpg-01",
+      "answerable": true,
+      "answer": "The user\u2019s inputs are validated in the `validate_inputs` helper, which is called at the very beginning of `generate_workout_plan`.  \n- `generate_workout_plan` invokes `validate_inputs(goal, experience, days_per_week, equipment)` and returns an error if any check fails. [src/assignment/plan_generator.py:L86-L134]  \n- `validate_inputs` checks that the goal is in `GOALS`, the experience level is in `EXPERIENCE_LEVELS`, the number of days per week is an integer between 1 and 7, and that at least one equipment option is selected. [src/assignment/plan_generator.py:L35-L47]",
+      "refused": false,
+      "citations": [
+        "src/assignment/plan_generator.py:L86-L134",
+        "src/assignment/plan_generator.py:L35-L47"
+      ],
+      "correct_citation": true,
+      "ungrounded": 0,
+      "seconds": 1.8429933660081588,
+      "verdict": {
+        "claims_total": 3,
+        "claims_supported": 3,
+        "correct": "yes"
+      },
+      "judge_failed": false,
+      "error": null
+    },
+    {
+      "question_id": "wpg-02",
+      "answerable": true,
+      "answer": "When the Groq API rate limit is hit, `generate_workout_plan` catches the `groq.RateLimitError` and returns a `PlanResult` whose `error` field contains the message \u201cGroq rate limit reached. Please wait a minute and try again.\u201d [src/assignment/plan_generator.py:L86-L134]",
+      "refused": false,
+      "citations": [
+        "src/assignment/plan_generator.py:L86-L134"
+      ],
+      "correct_citation": true,
+      "ungrounded": 0,
+      "seconds": 2.1260397660080343,
+      "verdict": {
+        "claims_total": 1,
+        "claims_supported": 1,
+        "correct": "yes"
+      },
+      "judge_failed": false,
+      "error": null
+    },
+    {
+      "question_id": "wpg-03",
+      "answerable": true,
+      "answer": "The system prompt sent to the model is:\n\n> \u201cYou are an experienced, certified personal trainer. You write safe, realistic, specific weekly workout plans that a real person can follow without further explanation. You never give medical advice beyond a brief reminder to consult a professional when injuries are involved.\u201d  \n> \n> [src/assignment/plan_generator.py:L1-L24]",
+      "refused": false,
+      "citations": [
+        "src/assignment/plan_generator.py:L1-L24"
+      ],
+      "correct_citation": true,
+      "ungrounded": 0,
+      "seconds": 16.065174581017345,
+      "verdict": {
+        "claims_total": 1,
+        "claims_supported": 1,
+        "correct": "yes"
+      },
+      "judge_failed": false,
+      "error": null
+    },
+    {
+      "question_id": "wpg-04",
+      "answerable": true,
+      "answer": "The app splits the generated Markdown plan into individual sections and then renders each section in its own tab.  \nAfter the plan is stored in `st.session_state`, the code calls `split_sections(plan)` to break the text into a list of `(title, body)` tuples. If there are at least two sections, it creates a tab for each one with `st.tabs([title.split(\" - \")[0] for title, _ in sections])`, using the part of the title before the \u201c\u2011\u201d (e.g., \u201cMonday\u201d) as the tab label. Inside each tab it renders the section with `st.markdown(f\"### {title}\\n\\n{body}\")`. This produces one tab per day in the interface. [src/assignment/app.py:L23-L66]",
+      "refused": false,
+      "citations": [
+        "src/assignment/app.py:L23-L66"
+      ],
+      "correct_citation": true,
+      "ungrounded": 0,
+      "seconds": 19.402156733034644,
+      "verdict": {
+        "claims_total": 5,
+        "claims_supported": 5,
+        "correct": "yes"
+      },
+      "judge_failed": false,
+      "error": null
+    },
+    {
+      "question_id": "wpg-05",
+      "answerable": true,
+      "answer": "The model name is taken from the environment variable **`GROQ_MODEL`**, and if that variable is unset the code falls back to the default model **`\"llama-3.3-70b-versatile\"`**.  \nThis is defined in `src/assignment/plan_generator.py` as:  \n`DEFAULT_MODEL = os.getenv(\"GROQ_MODEL\", \"\").strip() or \"llama-3.3-70b-versatile\"`\u3010src/assignment/plan_generator.py:L1-L24\u3011.",
+      "refused": false,
+      "citations": [
+        "src/assignment/plan_generator.py:L1-L24"
+      ],
+      "correct_citation": true,
+      "ungrounded": 0,
+      "seconds": 16.976393632008694,
+      "verdict": {
+        "claims_total": 1,
+        "claims_supported": 1,
+        "correct": "yes"
+      },
+      "judge_failed": false,
+      "error": null
+    },
+    {
+      "question_id": "wpg-06",
+      "answerable": true,
+      "answer": "The app marks the model\u2019s answer unusable when the returned text is empty, shorter than the minimum length, or lacks a proper heading.  \nIn `generate_workout_plan()` it checks:\n\n```\nif not content or len(content.strip()) < MIN_PLAN_CHARS or \"##\" not in content:\n    return PlanResult(\n        error=\"The AI returned an empty or incomplete plan. Please click Generate again.\"\n    )\n```\n[ src/assignment/plan_generator.py:L86-L134 ]  \n\n`MIN_PLAN_CHARS` is set to 200, so any plan shorter than that is considered unusable.  \n[ src/assignment/plan_generator.py:L1-L24 ]",
+      "refused": false,
+      "citations": [
+        "src/assignment/plan_generator.py:L86-L134",
+        "src/assignment/plan_generator.py:L1-L24"
+      ],
+      "correct_citation": true,
+      "ungrounded": 0,
+      "seconds": 18.119245009031147,
+      "verdict": {
+        "claims_total": 3,
+        "claims_supported": 3,
+        "correct": "yes"
+      },
+      "judge_failed": false,
+      "error": null
+    },
+    {
+      "question_id": "wpg-07",
+      "answerable": true,
+      "answer": "`build_prompt` first strips any surrounding whitespace from the `injuries` string.  \nIf the resulting string is non\u2011empty, it inserts a line into the prompt that reads  \n\n```\n- Injuries/limitations: {injuries}. Avoid or substitute any exercise that aggravates these, and name the substitution.\n```  \n\nIf the string is empty (or only whitespace), it inserts the line  \n\n```\n- Injuries/limitations: none reported.\n```  \n\nThis line is then included in the final prompt that is sent to the LLM. [src/assignment/plan_generator.py:L50-L83]",
+      "refused": false,
+      "citations": [
+        "src/assignment/plan_generator.py:L50-L83"
+      ],
+      "correct_citation": true,
+      "ungrounded": 0,
+      "seconds": 16.720294554019347,
+      "verdict": {
+        "claims_total": 4,
+        "claims_supported": 4,
+        "correct": "yes"
+      },
+      "judge_failed": false,
+      "error": null
+    },
+    {
+      "question_id": "por-01",
+      "answerable": true,
+      "answer": "The contact form is validated in the `handleSubmit` function inside **src/components/Contact.jsx**.  \nWhen the form is submitted, the function:\n\n1. Prevents the default form submission and reads the `name`, `email`, and `message` fields from the form data, trimming whitespace.  \n2. Checks that none of these fields are empty; if any are missing, it sets an error message: \u201cPlease complete each field before preparing your message.\u201d [src/components/Contact.jsx:L1-L60]  \n3. Validates the email format with a regular expression (`/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/`). If the test fails, it sets an error message: \u201cPlease enter a valid email address.\u201d [src/components/Contact.jsx:L51-L110]  \n\nIf all checks pass, the error state is cleared and the mailto link is constructed.",
+      "refused": false,
+      "citations": [
+        "src/components/Contact.jsx:L1-L60"
+      ],
+      "correct_citation": true,
+      "ungrounded": 0,
+      "seconds": 23.155450663005468,
+      "verdict": {
+        "claims_total": 5,
+        "claims_supported": 5,
+        "correct": "yes"
+      },
+      "judge_failed": false,
+      "error": null
+    },
+    {
+      "question_id": "por-02",
+      "answerable": true,
+      "answer": "The light/dark switch is driven by a React state in **App.jsx**.  \n`mode` is stored with `useState('light')` and the `toggleMode` function flips it between `'light'` and `'dark'` when called.  \nThe current `mode` is passed to **Navbar.jsx** as a prop and to **ThemeProvider** as the theme\u2019s `mode`.  \nIn **Navbar.jsx** the icon button calls `onToggleMode` on click and shows a dark\u2011mode icon when `mode === 'light'` and a light\u2011mode icon otherwise.  \n`createPortfolioTheme(mode)` in **theme.js** builds a MUI theme whose palette, background, text, and component overrides depend on the `mode` value.  \nWhen `mode` changes, `useMemo` recomputes the theme, the `ThemeProvider` updates, and all components that read `theme.palette.mode` (e.g., the `Hero` component\u2019s background gradient) automatically switch styles.  \n\nThus, clicking the button toggles the state, which re\u2011creates the theme and re\u2011renders the UI in the selected mode.  \n\n[App.jsx:L1-L38] [Navbar.jsx:L1-L60] [Navbar.jsx:L51-L110] [theme/theme.js:L1-L60] [theme/theme.js:L51-L73] [Hero.jsx:L1-L60]",
+      "refused": false,
+      "citations": [],
+      "correct_citation": false,
+      "ungrounded": 6,
+      "seconds": 27.32366090803407,
+      "verdict": {
+        "claims_total": 6,
+        "claims_supported": 6,
+        "correct": "yes"
+      },
+      "judge_failed": false,
+      "error": null
+    },
+    {
+      "question_id": "por-03",
+      "answerable": true,
+      "answer": "The dark theme uses the following colors:\n\n- Background: `#111318` [src/theme/theme.js:L1-L60].  \n- Paper: `#191c23` [src/theme/theme.js:L1-L60].  \n- Text: `#f2f3f7` [src/theme/theme.js:L1-L60].  \n- Secondary text: `#a4a9b5` [src/theme/theme.js:L1-L60].  \n- Primary: `#a8b0ff` [src/theme/theme.js:L1-L60].  \n- Divider: `#2b2f39` [src/theme/theme.js:L1-L60].",
+      "refused": false,
+      "citations": [
+        "src/theme/theme.js:L1-L60"
+      ],
+      "correct_citation": true,
+      "ungrounded": 0,
+      "seconds": 24.269777558976784,
+      "verdict": {
+        "claims_total": 6,
+        "claims_supported": 6,
+        "correct": "yes"
+      },
+      "judge_failed": false,
+      "error": null
+    },
+    {
+      "question_id": "por-04",
+      "answerable": true,
+      "answer": "The navigation bar links to the following page sections:\n\n- **About** (`#about`) \u2013 defined in the `navItems` array [src/components/Navbar.jsx:L1-L60].  \n- **Skills** (`#skills`) \u2013 defined in the `navItems` array [src/components/Navbar.jsx:L1-L60].  \n- **Projects** (`#projects`) \u2013 defined in the `navItems` array [src/components/Navbar.jsx:L1-L60].  \n- **Experience** (`#experience`) \u2013 defined in the `navItems` array [src/components/Navbar.jsx:L1-L60].  \n- **Contact** (`#contact`) \u2013 linked by the \u201cLet\u2019s talk\u201d button in the main bar [src/components/Navbar.jsx:L51-L110] and also listed in the mobile drawer [src/components/Navbar.jsx:L101-L130].",
+      "refused": false,
+      "citations": [
+        "src/components/Navbar.jsx:L51-L110"
+      ],
+      "correct_citation": false,
+      "ungrounded": 0,
+      "seconds": 22.199975138006266,
+      "verdict": {
+        "claims_total": 5,
+        "claims_supported": 5,
+        "correct": "yes"
+      },
+      "judge_failed": false,
+      "error": null
+    },
+    {
+      "question_id": "rec-01",
+      "answerable": true,
+      "answer": "RecordCollection.one checks whether the collection contains more than one row by attempting to access the second element (`self[1]`). If a second row exists, it raises a `ValueError` indicating that the collection contains more than one row and that only one row is expected when using `one`. If no second row exists (i.e., an `IndexError` is raised), it falls back to returning the first row via `self.first(...)`. This behavior is documented in the method implementation [records.py:L233-L250] and verified by the test `test_one_raises_when_more_than_one` [tests/test_records.py:L99-L101].",
+      "refused": false,
+      "citations": [
+        "records.py:L233-L250",
+        "tests/test_records.py:L99-L101"
+      ],
+      "correct_citation": true,
+      "ungrounded": 0,
+      "seconds": 8.225384624965955,
+      "verdict": {
+        "claims_total": 5,
+        "claims_supported": 5,
+        "correct": "yes"
+      },
+      "judge_failed": false,
+      "error": null
+    },
+    {
+      "question_id": "rec-02",
+      "answerable": true,
+      "answer": "To execute multiple SQL statements atomically you create a transaction object from the `Database` instance and run the statements on that transaction, then commit it.  \nExample from the documentation:\n\n```python\nt = Database.transaction()   # start a new transaction\nt.query('INSERT INTO foo VALUES (42)')\nt.query('INSERT INTO foo VALUES (43)')\nt.commit()                    # commit the transaction\n```\n\nThe transaction object (`t`) ensures that all the queries are executed in a single database transaction; if you call `t.rollback()` instead of `t.commit()`, all changes are discarded.  \nThis pattern is shown in the README under the \u201cTransactions\u201d section. [README.md:L51-L110]",
+      "refused": false,
+      "citations": [
+        "README.md:L51-L110"
+      ],
+      "correct_citation": false,
+      "ungrounded": 0,
+      "seconds": 15.588634838990401,
+      "verdict": {
+        "claims_total": 4,
+        "claims_supported": 4,
+        "correct": "yes"
+      },
+      "judge_failed": false,
+      "error": null
+    },
+    {
+      "question_id": "rec-03",
+      "answerable": true,
+      "answer": "If you run the `records` command line tool without specifying `--url`, it falls back to the value of the `$DATABASE_URL` environment variable. This is defined in the CLI help text and in the `Database` constructor, which uses `os.environ.get(\"DATABASE_URL\")` when no URL is supplied. [records.py:L460-L550] [records.py:L263-L272]",
+      "refused": false,
+      "citations": [
+        "records.py:L460-L550",
+        "records.py:L263-L272"
+      ],
+      "correct_citation": true,
+      "ungrounded": 0,
+      "seconds": 19.59013844502624,
+      "verdict": {
+        "claims_total": 3,
+        "claims_supported": 3,
+        "correct": "yes"
+      },
+      "judge_failed": false,
+      "error": null
+    },
+    {
+      "question_id": "rec-04",
+      "answerable": true,
+      "answer": "Datetime values are converted to strings by the helper function `_reduce_datetimes`.  \nWhen a row is processed, `_reduce_datetimes` iterates over each element, and if the element has an `isoformat` method (i.e., it is a `datetime` or `date` object), it replaces that element with the result of `element.isoformat()`. This turns the datetime into an ISO\u20118601 string before the row is exported.  \n[records.py:L449-L457]",
+      "refused": false,
+      "citations": [
+        "records.py:L449-L457"
+      ],
+      "correct_citation": true,
+      "ungrounded": 0,
+      "seconds": 16.937075073015876,
+      "verdict": {
+        "claims_total": 3,
+        "claims_supported": 3,
+        "correct": "yes"
+      },
+      "judge_failed": false,
+      "error": null
+    },
+    {
+      "question_id": "rec-05",
+      "answerable": true,
+      "answer": "To pull a single value from a query you can use the `RecordCollection` that `Database.query` returns.  \n1. Execute the query \u2013 it gives you a `RecordCollection` (see `Connection.query` and `Database.query`)[records.py:L374-L398][records.py:L309-L315].  \n2. Call `rows.first()` to get the first (and only) `Record` in the collection (shown in the README)[README.md:L51-L110].  \n3. From that `Record` you can retrieve the value you need, e.g. via `record.values()` which returns a list of the row\u2019s values (or via `record.as_dict()` if you prefer a dictionary)[records.py:L41-L43].  \n\nSo a typical pattern is:\n\n```python\nrows = db.query(\"SELECT username FROM users WHERE id=:id\", id=1)\nrecord = rows.first()          # <Record {\"username\": ...}>\nvalue = record.values()[0]      # the single value you want\n```\n\nThis uses only the documented API shown in the snippets.",
+      "refused": false,
+      "citations": [
+        "records.py:L374-L398",
+        "records.py:L309-L315",
+        "README.md:L51-L110",
+        "records.py:L41-L43"
+      ],
+      "correct_citation": false,
+      "ungrounded": 0,
+      "seconds": 18.77695264504291,
+      "verdict": {
+        "claims_total": 5,
+        "claims_supported": 5,
+        "correct": "partial"
+      },
+      "judge_failed": false,
+      "error": null
+    },
+    {
+      "question_id": "rec-06",
+      "answerable": true,
+      "answer": "Yes. A row\u2019s columns can be accessed as attributes. For example, the README shows:\n\n```\nfor r in rows:\n    print(r.name, r.user_email)\n```\n\nand also states that values can be accessed many ways: `row.user_email`, `row['user_email']`, or `row[3]`\u3010README.md:L1-L60\u3011\u3010README.rst:L1-L60\u3011.",
+      "refused": false,
+      "citations": [
+        "README.md:L1-L60",
+        "README.rst:L1-L60"
+      ],
+      "correct_citation": false,
+      "ungrounded": 0,
+      "seconds": 18.742332627007272,
+      "verdict": {
+        "claims_total": 3,
+        "claims_supported": 3,
+        "correct": "yes"
+      },
+      "judge_failed": false,
+      "error": null
+    },
+    {
+      "question_id": "rec-07",
+      "answerable": true,
+      "answer": "Records exports query results by delegating to Tablib\u2019s dataset export functionality.  \nWhen a query is executed, the returned `RecordCollection` (named `rows` in the examples) has an `export` method that simply forwards the request to its underlying Tablib `Dataset`:\n\n```python\ndef export(self, format, **kwargs):\n    \"\"\"Export the RecordCollection to a given format (courtesy of Tablib).\"\"\"\n    return self.dataset.export(format, **kwargs)   # [records.py:L170-L172]\n```\n\nThe command\u2011line tool calls this method directly:\n\n```python\ncontent = rows.export(format)   # [records.py:L460-L550]\n```\n\nFor JSON representation, the `Record` class itself uses the same export mechanism to produce a JSON string for its `__repr__`:\n\n```python\ndef __repr__(self):\n    return \"<Record {}>\".format(self.export(\"json\")[1:-1])   # [records.py:L45-L46]\n```\n\nThus, all supported formats (CSV, TSV, JSON, YAML, XLS, etc.) are handled by Tablib\u2019s `Dataset.export` method, which the `RecordCollection.export` wrapper exposes.",
+      "refused": false,
+      "citations": [
+        "records.py:L170-L172",
+        "records.py:L460-L550",
+        "records.py:L45-L46"
+      ],
+      "correct_citation": true,
+      "ungrounded": 0,
+      "seconds": 16.812935503025074,
+      "verdict": {
+        "claims_total": 5,
+        "claims_supported": 5,
+        "correct": "yes"
+      },
+      "judge_failed": false,
+      "error": null
+    },
+    {
+      "question_id": "rec-08",
+      "answerable": true,
+      "answer": "If no database URL is supplied, the `Database` constructor raises a `ValueError` with the message \u201cYou must provide a db_url.\u201d [records.py:L263-L272]",
+      "refused": false,
+      "citations": [
+        "records.py:L263-L272"
+      ],
+      "correct_citation": true,
+      "ungrounded": 0,
+      "seconds": 18.49629025196191,
+      "verdict": {
+        "claims_total": 1,
+        "claims_supported": 1,
+        "correct": "yes"
+      },
+      "judge_failed": false,
+      "error": null
+    },
+    {
+      "question_id": "itd-01",
+      "answerable": true,
+      "answer": "The library checks expiration in `TimestampSigner.unsign`.  \nAfter verifying the signature it splits the signed value to obtain the\ntimestamp (`ts_int`). It then calculates the age as\n\n```\nage = self.get_timestamp() - ts_int\n```\n\nIf `max_age` is supplied, the code raises `SignatureExpired` when\n\n* `age > max_age` \u2013 the signature is older than the allowed age, or  \n* `age < 0` \u2013 the timestamp is in the future (e.g., clock skew), which is also treated as expired.  \n\nThis logic is executed in `TimestampSigner.unsign` [src/itsdangerous/timed.py:L72-L158].  \n`TimedSerializer.loads` forwards the `max_age` argument to the signer, so the same check is applied when loading a timed payload [src/itsdangerous/timed.py:L185-L220].",
+      "refused": false,
+      "citations": [
+        "src/itsdangerous/timed.py:L72-L158",
+        "src/itsdangerous/timed.py:L185-L220"
+      ],
+      "correct_citation": true,
+      "ungrounded": 0,
+      "seconds": 16.751832248002756,
+      "verdict": {
+        "claims_total": 7,
+        "claims_supported": 7,
+        "correct": "yes"
+      },
+      "judge_failed": false,
+      "error": null
+    },
+    {
+      "question_id": "itd-02",
+      "answerable": true,
+      "answer": "The signing key is produced by the `Signer.derive_key` method, which combines the secret key with the salt in one of several ways depending on the chosen `key_derivation` scheme.  \n* If `key_derivation` is `\"concat\"`, the key is the hash of the concatenation of the salt and the secret key: `digest_method(salt + secret_key)`. [src/itsdangerous/signer.py:L182-L213]  \n* If it is `\"django-concat\"` (the default), the key is the hash of the salt, the literal string `\"signer\"`, and the secret key: `digest_method(salt + b\"signer\" + secret_key)`. [src/itsdangerous/signer.py:L182-L213]  \n* If it is `\"hmac\"`, the key is the HMAC of the salt using the secret key as the HMAC key: `hmac.new(secret_key, digestmod=self.digest_method).update(self.salt).digest()`. [src/itsdangerous/signer.py:L182-L213]  \n* If it is `\"none\"`, the signing key is simply the secret key itself. [src/itsdangerous/signer.py:L182-L213]  \n\nThe default key\u2011derivation scheme is `\"django-concat\"` and the default digest method is SHA\u20111, unless overridden by the caller. [src/itsdangerous/signer.py:L76-L127]",
+      "refused": false,
+      "citations": [
+        "src/itsdangerous/signer.py:L182-L213",
+        "src/itsdangerous/signer.py:L76-L127"
+      ],
+      "correct_citation": true,
+      "ungrounded": 0,
+      "seconds": 22.0457665429567,
+      "verdict": {
+        "claims_total": 6,
+        "claims_supported": 6,
+        "correct": "yes"
+      },
+      "judge_failed": false,
+      "error": null
+    },
+    {
+      "question_id": "itd-03",
+      "answerable": true,
+      "answer": "To rotate secret keys while keeping old tokens valid, pass a **list of keys** to the serializer (or signer).  \nThe list is ordered from oldest to newest; the newest key is used for signing, and each key is tried in reverse order when validating a signature.  \n\nExample from the documentation:\n\n```python\nSECRET_KEYS = [\"2b9cd98e\", \"169d7886\", \"b6af09f5\"]\n\n# sign with the latest key\ns = Serializer(SECRET_KEYS)\nt = s.dumps({\"id\": 42})\n\n# rotate: add a new key and drop the oldest\nSECRET_KEYS.append(\"cf9b3588\")\ndel SECRET_KEYS[0]\n\ns = Serializer(SECRET_KEYS)\ns.loads(t)  # still valid even though it was signed with the old key\n```\n[docs/concepts.rst:L101-L154]\n\nThe `Signer` constructor accepts a list of keys and stores them in `self.secret_keys`, using the last key for signing and trying all keys for verification.  \n[docs/concepts.rst:L101-L154]  \n[src/itsdangerous/signer.py:L129-L173]",
+      "refused": false,
+      "citations": [
+        "docs/concepts.rst:L101-L154",
+        "src/itsdangerous/signer.py:L129-L173"
+      ],
+      "correct_citation": true,
+      "ungrounded": 0,
+      "seconds": 28.907322748040315,
+      "verdict": {
+        "claims_total": 4,
+        "claims_supported": 4,
+        "correct": "yes"
+      },
+      "judge_failed": false,
+      "error": null
+    },
+    {
+      "question_id": "itd-04",
+      "answerable": true,
+      "answer": "The URL\u2011safe serializer compresses the JSON payload by first calling `zlib.compress` on the serialized string.  \nIf the compressed result is at least one byte shorter than the original (`len(compressed) < len(json) - 1`), it replaces the original with the compressed bytes and marks the payload as compressed.  \nThe (possibly compressed) bytes are then base64\u2011encoded with `base64_encode`.  \nIf the payload was compressed, a leading `.` is prefixed to the base64 string to indicate compression.  \n\nThis logic is implemented in `URLSafeSerializerMixin.dump_payload`:\n\n```\njson = super().dump_payload(obj)\nis_compressed = False\ncompressed = zlib.compress(json)\n\nif len(compressed) < (len(json) - 1):\n    json = compressed\n    is_compressed = True\n\nbase64d = base64_encode(json)\n\nif is_compressed:\n    base64d = b\".\" + base64d\n```\n[ src/itsdangerous/url_safe.py:L55-L69 ]",
+      "refused": false,
+      "citations": [
+        "src/itsdangerous/url_safe.py:L55-L69"
+      ],
+      "correct_citation": true,
+      "ungrounded": 0,
+      "seconds": 14.893216386961285,
+      "verdict": {
+        "claims_total": 5,
+        "claims_supported": 5,
+        "correct": "yes"
+      },
+      "judge_failed": false,
+      "error": null
+    },
+    {
+      "question_id": "itd-05",
+      "answerable": true,
+      "answer": "The exception raised when a signature is too old is **`SignatureExpired`**.  \nIt is raised in `TimedSerializer.loads` when the signature\u2019s timestamp exceeds the allowed `max_age` [src/itsdangerous/timed.py:L185-L220].  \n`SignatureExpired` is defined as a subclass of `BadTimeSignature` in `itsdangerous/exc.py` [src/itsdangerous/exc.py:L60-L63].",
+      "refused": false,
+      "citations": [
+        "src/itsdangerous/timed.py:L185-L220",
+        "src/itsdangerous/exc.py:L60-L63"
+      ],
+      "correct_citation": true,
+      "ungrounded": 0,
+      "seconds": 7.610312382981647,
+      "verdict": {
+        "claims_total": 3,
+        "claims_supported": 2,
+        "correct": "yes"
+      },
+      "judge_failed": false,
+      "error": null
+    },
+    {
+      "question_id": "itd-06",
+      "answerable": true,
+      "answer": "Bytes are encoded to base64 by first converting the input to bytes with `want_bytes`, then applying `base64.urlsafe_b64encode`, and finally stripping any trailing `=` padding characters with `rstrip(b\"=\")` [src/itsdangerous/encoding.py:L20-L25].",
+      "refused": false,
+      "citations": [
+        "src/itsdangerous/encoding.py:L20-L25"
+      ],
+      "correct_citation": true,
+      "ungrounded": 0,
+      "seconds": 9.09780300303828,
+      "verdict": {
+        "claims_total": 1,
+        "claims_supported": 1,
+        "correct": "yes"
+      },
+      "judge_failed": false,
+      "error": null
+    },
+    {
+      "question_id": "itd-07",
+      "answerable": true,
+      "answer": "BadSignature is the base exception raised when a signature does not match the expected value.  \nBadTimeSignature is a subclass of BadSignature that is raised specifically when a time\u2011based signature is invalid (e.g., the timestamp is wrong or missing).  \n\nThus, BadTimeSignature inherits from BadSignature and is used only for time\u2011based signatures.  \n[ src/itsdangerous/exc.py:L22-L23 ]  \n[ src/itsdangerous/exc.py:L36-L39 ]",
+      "refused": false,
+      "citations": [
+        "src/itsdangerous/exc.py:L22-L23",
+        "src/itsdangerous/exc.py:L36-L39"
+      ],
+      "correct_citation": true,
+      "ungrounded": 0,
+      "seconds": 5.286064962972887,
+      "verdict": {
+        "claims_total": 2,
+        "claims_supported": 1,
+        "correct": "yes"
+      },
+      "judge_failed": false,
+      "error": null
+    },
+    {
+      "question_id": "none-01",
+      "answerable": false,
+      "answer": "I could not find this in the indexed code.",
+      "refused": true,
+      "citations": [],
+      "correct_citation": false,
+      "ungrounded": 0,
+      "seconds": 21.374355597014073,
+      "verdict": null,
+      "judge_failed": false,
+      "error": null
+    },
+    {
+      "question_id": "none-02",
+      "answerable": false,
+      "answer": "I could not find this in the indexed code.",
+      "refused": true,
+      "citations": [],
+      "correct_citation": false,
+      "ungrounded": 0,
+      "seconds": 23.73108585202135,
+      "verdict": null,
+      "judge_failed": false,
+      "error": null
+    },
+    {
+      "question_id": "none-03",
+      "answerable": false,
+      "answer": "I could not find this in the indexed code.",
+      "refused": true,
+      "citations": [],
+      "correct_citation": false,
+      "ungrounded": 0,
+      "seconds": 21.431236298987642,
+      "verdict": null,
+      "judge_failed": false,
+      "error": null
+    }
+  ],
+  "config": {
+    "embedding_model": "BAAI/bge-small-en-v1.5",
+    "reranker_model": "Xenova/ms-marco-MiniLM-L-6-v2",
+    "llm_model": "openai/gpt-oss-20b",
+    "judge_model": "openai/gpt-oss-20b",
+    "search_candidates": 30,
+    "fused_candidates": 20,
+    "rrf_k": 60,
+    "context_chunks": 6,
+    "reranker_used_for_answers": true,
+    "max_chunk_lines": 120,
+    "window_lines": 60,
+    "window_overlap": 10,
+    "commits": {
+      "arupbiswas-tech/workout-plan-generator": "8579df67552225a53c49b4ff36b61d5a7e86d8bd",
+      "arupbiswas-tech/my-portfolio": "6e3f71f377c04599d0a628d8366bf315e30cd689",
+      "kennethreitz/records": "ea4273695cee6da42edf1cb294d1f2a4505470fc",
+      "pallets/itsdangerous": "672971d66a2ef9f85151e53283113f33d642dabd"
+    }
+  }
+}

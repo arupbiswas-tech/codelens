@@ -1,0 +1,40 @@
+name: CodeLens review
+
+# Reviews every pull request with a running CodeLens server and posts the findings as inline
+# comments. Setup (see docs/RUNNING.md, "GitHub Action"):
+#   1. A CodeLens server the runner can reach, with this repository already indexed.
+#   2. Repository secrets: CODELENS_URL (and CODELENS_TOKEN if your server asks for one).
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write # to post the review
+
+# A new push supersedes the review that is still running.
+concurrency:
+  group: codelens-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    # Pull requests from forks get no secrets, so there is nothing to review them with.
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Review the pull request with CodeLens
+        # The script never fails on its own; this is a second safety net so a review
+        # problem can never block a merge.
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CODELENS_URL: ${{ secrets.CODELENS_URL }}
+          CODELENS_TOKEN: ${{ secrets.CODELENS_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: python3 scripts/post_review.py

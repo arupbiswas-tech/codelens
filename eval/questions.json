@@ -1,0 +1,204 @@
+{
+  "_about": "Hand-written evaluation set. 'expected' is a list of ALTERNATIVES: retrieving any one of them counts as a hit. A label is {path, symbol} (matches chunks with that symbol, stable when lines move) or {path, lines:[first,last]} (matches any chunk overlapping those lines; used for module-level code and for non-Python files, which are chunked as plain line windows). answerable=false means the repo does not contain the answer and the correct behaviour is to say so. Labels were written against the pinned commits below.",
+  "repos": {
+    "arupbiswas-tech/workout-plan-generator": {
+      "url": "https://github.com/arupbiswas-tech/workout-plan-generator",
+      "commit": "8579df67552225a53c49b4ff36b61d5a7e86d8bd"
+    },
+    "arupbiswas-tech/my-portfolio": {
+      "url": "https://github.com/arupbiswas-tech/my-portfolio",
+      "commit": "6e3f71f377c04599d0a628d8366bf315e30cd689"
+    },
+    "kennethreitz/records": {
+      "url": "https://github.com/kennethreitz/records",
+      "commit": "ea4273695cee6da42edf1cb294d1f2a4505470fc"
+    },
+    "pallets/itsdangerous": {
+      "url": "https://github.com/pallets/itsdangerous",
+      "commit": "672971d66a2ef9f85151e53283113f33d642dabd"
+    }
+  },
+  "questions": [
+    {
+      "id": "wpg-01", "repo": "arupbiswas-tech/workout-plan-generator", "category": "where",
+      "question": "Where are the user's inputs checked before a plan is generated?",
+      "expected": [{"path": "src/assignment/plan_generator.py", "symbol": "validate_inputs"}]
+    },
+    {
+      "id": "wpg-02", "repo": "arupbiswas-tech/workout-plan-generator", "category": "how",
+      "question": "What happens when the Groq API rate limit is reached?",
+      "expected": [{"path": "src/assignment/plan_generator.py", "symbol": "generate_workout_plan"}]
+    },
+    {
+      "id": "wpg-03", "repo": "arupbiswas-tech/workout-plan-generator", "category": "constant",
+      "question": "What system prompt is given to the model?",
+      "expected": [{"path": "src/assignment/plan_generator.py", "lines": [19, 24]}]
+    },
+    {
+      "id": "wpg-04", "repo": "arupbiswas-tech/workout-plan-generator", "category": "how",
+      "question": "How is the generated plan split into one tab per day in the interface?",
+      "expected": [
+        {"path": "src/assignment/app.py", "symbol": "split_sections"},
+        {"path": "src/assignment/app.py", "lines": [54, 59]}
+      ]
+    },
+    {
+      "id": "wpg-05", "repo": "arupbiswas-tech/workout-plan-generator", "category": "config",
+      "question": "Which environment variable sets the model name, and what is the default model?",
+      "expected": [{"path": "src/assignment/plan_generator.py", "lines": [12, 12]}]
+    },
+    {
+      "id": "wpg-06", "repo": "arupbiswas-tech/workout-plan-generator", "category": "vague",
+      "question": "When does the app decide the model's answer is unusable?",
+      "expected": [{"path": "src/assignment/plan_generator.py", "symbol": "generate_workout_plan"}]
+    },
+    {
+      "id": "wpg-07", "repo": "arupbiswas-tech/workout-plan-generator", "category": "exact-name",
+      "question": "What does build_prompt do with the injuries text?",
+      "expected": [{"path": "src/assignment/plan_generator.py", "symbol": "build_prompt"}]
+    },
+
+    {
+      "id": "por-01", "repo": "arupbiswas-tech/my-portfolio", "category": "how-js",
+      "question": "How is the contact form validated?",
+      "expected": [{"path": "src/components/Contact.jsx", "lines": [40, 61]}]
+    },
+    {
+      "id": "por-02", "repo": "arupbiswas-tech/my-portfolio", "category": "how-js",
+      "question": "How does switching between light mode and dark mode work?",
+      "expected": [
+        {"path": "src/App.jsx", "lines": [14, 19]},
+        {"path": "src/theme/theme.js", "lines": [22, 25]}
+      ]
+    },
+    {
+      "id": "por-03", "repo": "arupbiswas-tech/my-portfolio", "category": "constant",
+      "question": "Which colors does the dark theme use?",
+      "expected": [{"path": "src/theme/theme.js", "lines": [12, 19]}]
+    },
+    {
+      "id": "por-04", "repo": "arupbiswas-tech/my-portfolio", "category": "where",
+      "question": "Which sections are linked from the navigation bar?",
+      "expected": [{"path": "src/components/Navbar.jsx", "lines": [23, 28]}]
+    },
+
+    {
+      "id": "rec-01", "repo": "kennethreitz/records", "category": "exact-name",
+      "question": "What does RecordCollection.one do when the query returns more than one row?",
+      "expected": [{"path": "records.py", "symbol": "RecordCollection.one"}]
+    },
+    {
+      "id": "rec-02", "repo": "kennethreitz/records", "category": "how",
+      "question": "How do I run several statements in one transaction?",
+      "expected": [
+        {"path": "records.py", "symbol": "Database.transaction"},
+        {"path": "records.py", "symbol": "Connection.transaction"}
+      ]
+    },
+    {
+      "id": "rec-03", "repo": "kennethreitz/records", "category": "config",
+      "question": "Which database does the command line tool use if I do not pass --url?",
+      "expected": [{"path": "records.py", "symbol": "cli"}]
+    },
+    {
+      "id": "rec-04", "repo": "kennethreitz/records", "category": "how",
+      "question": "How are datetime values turned into strings when exporting?",
+      "expected": [
+        {"path": "records.py", "symbol": "_reduce_datetimes"},
+        {"path": "records.py", "symbol": "RecordCollection.dataset"}
+      ]
+    },
+    {
+      "id": "rec-05", "repo": "kennethreitz/records", "category": "vague",
+      "question": "How can I get a single value out of a query result?",
+      "expected": [{"path": "records.py", "symbol": "RecordCollection.scalar"}]
+    },
+    {
+      "id": "rec-06", "repo": "kennethreitz/records", "category": "how",
+      "question": "Can a column of a row be read as an attribute, like row.name?",
+      "expected": [
+        {"path": "records.py", "symbol": "Record.__getattr__"},
+        {"path": "records.py", "symbol": "Record.__getitem__"}
+      ]
+    },
+    {
+      "id": "rec-07", "repo": "kennethreitz/records", "category": "how",
+      "question": "How does Records export query results to formats like CSV or JSON?",
+      "expected": [
+        {"path": "records.py", "symbol": "RecordCollection.export"},
+        {"path": "records.py", "symbol": "Record.export"},
+        {"path": "records.py", "symbol": "RecordCollection.dataset"}
+      ]
+    },
+    {
+      "id": "rec-08", "repo": "kennethreitz/records", "category": "vague",
+      "question": "What error do I get if no database URL is provided?",
+      "expected": [{"path": "records.py", "symbol": "Database.__init__"}]
+    },
+
+    {
+      "id": "itd-01", "repo": "pallets/itsdangerous", "category": "how",
+      "question": "How does the library check whether a timestamped signature has expired?",
+      "expected": [{"path": "src/itsdangerous/timed.py", "symbol": "TimestampSigner.unsign"}]
+    },
+    {
+      "id": "itd-02", "repo": "pallets/itsdangerous", "category": "how",
+      "question": "How is the signing key derived from the secret key?",
+      "expected": [{"path": "src/itsdangerous/signer.py", "symbol": "Signer.derive_key"}]
+    },
+    {
+      "id": "itd-03", "repo": "pallets/itsdangerous", "category": "vague",
+      "question": "How can I rotate secret keys without invalidating existing signatures?",
+      "expected": [
+        {"path": "src/itsdangerous/signer.py", "symbol": "Signer"},
+        {"path": "src/itsdangerous/signer.py", "symbol": "Signer.__init__"},
+        {"path": "src/itsdangerous/serializer.py", "symbol": "Serializer.iter_unsigners"}
+      ]
+    },
+    {
+      "id": "itd-04", "repo": "pallets/itsdangerous", "category": "how",
+      "question": "How does the URL-safe serializer compress its data?",
+      "expected": [{"path": "src/itsdangerous/url_safe.py", "symbol": "URLSafeSerializerMixin.dump_payload"}]
+    },
+    {
+      "id": "itd-05", "repo": "pallets/itsdangerous", "category": "exact-name",
+      "question": "Which exception is raised when a signature is too old?",
+      "expected": [
+        {"path": "src/itsdangerous/exc.py", "symbol": "SignatureExpired"},
+        {"path": "src/itsdangerous/timed.py", "symbol": "TimestampSigner.unsign"}
+      ]
+    },
+    {
+      "id": "itd-06", "repo": "pallets/itsdangerous", "category": "how",
+      "question": "How are bytes encoded to base64 without the trailing equals signs?",
+      "expected": [{"path": "src/itsdangerous/encoding.py", "symbol": "base64_encode"}]
+    },
+    {
+      "id": "itd-07", "repo": "pallets/itsdangerous", "category": "vague",
+      "question": "What is the difference between BadSignature and BadTimeSignature?",
+      "expected": [
+        {"path": "src/itsdangerous/exc.py", "symbol": "BadSignature"},
+        {"path": "src/itsdangerous/exc.py", "symbol": "BadTimeSignature"}
+      ]
+    },
+
+    {
+      "id": "none-01", "repo": "arupbiswas-tech/workout-plan-generator", "category": "unanswerable",
+      "answerable": false,
+      "question": "How does the application store user accounts and passwords in a database?",
+      "expected": []
+    },
+    {
+      "id": "none-02", "repo": "kennethreitz/records", "category": "unanswerable",
+      "answerable": false,
+      "question": "How does Records support asynchronous queries with asyncio?",
+      "expected": []
+    },
+    {
+      "id": "none-03", "repo": "pallets/itsdangerous", "category": "unanswerable",
+      "answerable": false,
+      "question": "How does the library send signed confirmation emails over SMTP?",
+      "expected": []
+    }
+  ]
+}

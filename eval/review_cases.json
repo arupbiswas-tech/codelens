@@ -1,0 +1,117 @@
+{
+  "_about": "Real git diffs of one-line mutations of real files, built by make_review_cases.py. 'bug' cases inject a defect and 'expected' is the added line(s); 'clean' cases are harmless refactors and must produce no comments.",
+  "cases": [
+    {
+      "id": "rec-rollback",
+      "repo": "kennethreitz/records",
+      "kind": "bug",
+      "description": "transaction no longer rolls back when the block raises",
+      "diff": "diff --git a/records.py b/records.py\nindex b5b6766..74f8f97 100644\n--- a/records.py\n+++ b/records.py\n@@ -342,7 +342,7 @@ class Database(object):\n             yield conn\n             tx.commit()\n         except:\n-            tx.rollback()\n+            pass\n         finally:\n             conn.close()\n \n",
+      "expected": [
+        {
+          "path": "records.py",
+          "lines": [
+            345,
+            345
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rec-scalar",
+      "repo": "kennethreitz/records",
+      "kind": "bug",
+      "description": "scalar() returns the second column instead of the first",
+      "diff": "diff --git a/records.py b/records.py\nindex b5b6766..f3a4f1d 100644\n--- a/records.py\n+++ b/records.py\n@@ -252,7 +252,7 @@ class RecordCollection(object):\n     def scalar(self, default=None):\n         \"\"\"Returns the first column of the first row, or `default`.\"\"\"\n         row = self.one()\n-        return row[0] if row else default\n+        return row[1] if row else default\n \n \n class Database(object):\n",
+      "expected": [
+        {
+          "path": "records.py",
+          "lines": [
+            255,
+            255
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rec-sqli",
+      "repo": "kennethreitz/records",
+      "kind": "bug",
+      "description": "query parameters are formatted into the SQL text instead of bound (SQL injection)",
+      "diff": "diff --git a/records.py b/records.py\nindex b5b6766..2710601 100644\n--- a/records.py\n+++ b/records.py\n@@ -379,7 +379,7 @@ class Connection(object):\n \n         # Execute the given query.\n         cursor = self._conn.execute(\n-            text(query).bindparams(**params)\n+            text(query.format(**params))\n         )  # TODO: PARAMS GO HERE\n \n         # Row-by-row Record generator.\n",
+      "expected": [
+        {
+          "path": "records.py",
+          "lines": [
+            382,
+            382
+          ]
+        }
+      ]
+    },
+    {
+      "id": "itd-derive",
+      "repo": "pallets/itsdangerous",
+      "kind": "bug",
+      "description": "key derivation uses the OLDEST secret key instead of the newest (breaks key rotation)",
+      "diff": "diff --git a/src/itsdangerous/signer.py b/src/itsdangerous/signer.py\nindex e324dc0..f930945 100644\n--- a/src/itsdangerous/signer.py\n+++ b/src/itsdangerous/signer.py\n@@ -193,7 +193,7 @@ class Signer:\n             Added the ``secret_key`` parameter.\n         \"\"\"\n         if secret_key is None:\n-            secret_key = self.secret_keys[-1]\n+            secret_key = self.secret_keys[0]\n         else:\n             secret_key = want_bytes(secret_key)\n \n",
+      "expected": [
+        {
+          "path": "src/itsdangerous/signer.py",
+          "lines": [
+            196,
+            196
+          ]
+        }
+      ]
+    },
+    {
+      "id": "itd-expiry",
+      "repo": "pallets/itsdangerous",
+      "kind": "bug",
+      "description": "the expiry test is inverted: fresh signatures are rejected, old ones accepted",
+      "diff": "diff --git a/src/itsdangerous/timed.py b/src/itsdangerous/timed.py\nindex 52deeea..f2745d1 100644\n--- a/src/itsdangerous/timed.py\n+++ b/src/itsdangerous/timed.py\n@@ -138,7 +138,7 @@ class TimestampSigner(Signer):\n         if max_age is not None:\n             age = self.get_timestamp() - ts_int\n \n-            if age > max_age:\n+            if age < max_age:\n                 raise SignatureExpired(\n                     f\"Signature age {age} > {max_age} seconds\",\n                     payload=value,\n",
+      "expected": [
+        {
+          "path": "src/itsdangerous/timed.py",
+          "lines": [
+            141,
+            141
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wpg-days",
+      "repo": "arupbiswas-tech/workout-plan-generator",
+      "kind": "bug",
+      "description": "0 training days is accepted although the message and the prompt need 1 to 7",
+      "diff": "diff --git a/src/assignment/plan_generator.py b/src/assignment/plan_generator.py\nindex 7b39349..b3d41dd 100644\n--- a/src/assignment/plan_generator.py\n+++ b/src/assignment/plan_generator.py\n@@ -40,7 +40,7 @@ def validate_inputs(\n         return \"Please choose a fitness goal.\"\n     if experience not in EXPERIENCE_LEVELS:\n         return \"Please choose your experience level.\"\n-    if not isinstance(days_per_week, int) or not 1 <= days_per_week <= 7:\n+    if not isinstance(days_per_week, int) or not 0 <= days_per_week <= 7:\n         return \"Please select between 1 and 7 workout days per week.\"\n     if not equipment or any(e not in EQUIPMENT_OPTIONS for e in equipment):\n         return \"Please select at least one equipment option.\"\n",
+      "expected": [
+        {
+          "path": "src/assignment/plan_generator.py",
+          "lines": [
+            43,
+            43
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wpg-clean",
+      "repo": "arupbiswas-tech/workout-plan-generator",
+      "kind": "clean",
+      "description": "a local variable is renamed everywhere it is used",
+      "diff": "diff --git a/src/assignment/plan_generator.py b/src/assignment/plan_generator.py\nindex 7b39349..1d62c4f 100644\n--- a/src/assignment/plan_generator.py\n+++ b/src/assignment/plan_generator.py\n@@ -62,14 +62,14 @@ def build_prompt(\n         if injuries\n         else \"- Injuries/limitations: none reported.\"\n     )\n-    rest_days = 7 - days_per_week\n+    rest_day_count = 7 - days_per_week\n \n     return f\"\"\"Create a 7-day workout plan for this person.\n \n CLIENT PROFILE\n - Primary goal: {goal}\n - Experience level: {experience}\n-- Training days per week: {days_per_week} (so {rest_days} rest/recovery day(s))\n+- Training days per week: {days_per_week} (so {rest_day_count} rest/recovery day(s))\n - Available equipment: {\", \".join(equipment)}\n {injury_line}\n \n",
+      "expected": []
+    },
+    {
+      "id": "itd-clean",
+      "repo": "pallets/itsdangerous",
+      "kind": "clean",
+      "description": "a docstring is reworded",
+      "diff": "diff --git a/src/itsdangerous/encoding.py b/src/itsdangerous/encoding.py\nindex f5ca80f..356e220 100644\n--- a/src/itsdangerous/encoding.py\n+++ b/src/itsdangerous/encoding.py\n@@ -18,8 +18,8 @@ def want_bytes(\n \n \n def base64_encode(string: str | bytes) -> bytes:\n-    \"\"\"Base64 encode a string of bytes or text. The resulting bytes are\n-    safe to use in URLs.\n+    \"\"\"Encode a string of bytes or text as URL-safe base64 without padding. The\n+    result can be used in URLs.\n     \"\"\"\n     string = want_bytes(string)\n     return base64.urlsafe_b64encode(string).rstrip(b\"=\")\n",
+      "expected": []
+    }
+  ]
+}

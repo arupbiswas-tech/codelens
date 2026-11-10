@@ -1,0 +1,364 @@
+{
+  "summary": {
+    "bug_cases": 6,
+    "clean_cases": 2,
+    "failed_cases": 0,
+    "levels": {
+      "draft": {
+        "bugs_found": 6,
+        "on_clean_diffs": 2,
+        "elsewhere_on_bug_diffs": 0
+      },
+      "after rule check": {
+        "bugs_found": 6,
+        "on_clean_diffs": 1,
+        "elsewhere_on_bug_diffs": 0
+      },
+      "final": {
+        "bugs_found": 6,
+        "on_clean_diffs": 0,
+        "elsewhere_on_bug_diffs": 0
+      }
+    },
+    "dropped_by_reason": {
+      "not_an_added_line": 1,
+      "unsupported": 1
+    },
+    "unchecked_comments": 0
+  },
+  "records": [
+    {
+      "case_id": "rec-rollback",
+      "kind": "bug",
+      "seconds": 2.22,
+      "error": null,
+      "levels": {
+        "draft": [
+          {
+            "path": "records.py",
+            "line": 345,
+            "severity": "high",
+            "body": "The except block swallows all exceptions by calling `pass`, which hides any error that occurs during the transaction. This can lead to silent failures and make debugging impossible. The code should at least log the exception or re\u2011raise it to propagate the error.",
+            "evidence": [],
+            "checked": true,
+            "note": ""
+          }
+        ],
+        "after rule check": [
+          {
+            "path": "records.py",
+            "line": 345,
+            "severity": "high",
+            "body": "The except block swallows all exceptions by calling `pass`, which hides any error that occurs during the transaction. This can lead to silent failures and make debugging impossible. The code should at least log the exception or re\u2011raise it to propagate the error.",
+            "evidence": [],
+            "checked": true,
+            "note": ""
+          }
+        ],
+        "final": [
+          {
+            "path": "records.py",
+            "line": 345,
+            "severity": "high",
+            "body": "The except block swallows all exceptions by calling `pass`, which hides any error that occurs during the transaction. This can lead to silent failures and make debugging impossible. The code should at least log the exception or re\u2011raise it to propagate the error.",
+            "evidence": [],
+            "checked": true,
+            "note": ""
+          }
+        ]
+      },
+      "dropped": []
+    },
+    {
+      "case_id": "rec-scalar",
+      "kind": "bug",
+      "seconds": 1.37,
+      "error": null,
+      "levels": {
+        "draft": [
+          {
+            "path": "records.py",
+            "line": 255,
+            "severity": "high",
+            "body": "The scalar method incorrectly returns the second column (index 1) instead of the first column (index 0). This breaks the contract of scalar, which is documented to return the first column of the first row. It will return wrong data or raise an IndexError if the row has only one column.",
+            "evidence": [],
+            "checked": true,
+            "note": ""
+          }
+        ],
+        "after rule check": [
+          {
+            "path": "records.py",
+            "line": 255,
+            "severity": "high",
+            "body": "The scalar method incorrectly returns the second column (index 1) instead of the first column (index 0). This breaks the contract of scalar, which is documented to return the first column of the first row. It will return wrong data or raise an IndexError if the row has only one column.",
+            "evidence": [],
+            "checked": true,
+            "note": ""
+          }
+        ],
+        "final": [
+          {
+            "path": "records.py",
+            "line": 255,
+            "severity": "high",
+            "body": "The scalar method incorrectly returns the second column (index 1) instead of the first column (index 0). This breaks the contract of scalar, which is documented to return the first column of the first row. It will return wrong data or raise an IndexError if the row has only one column.",
+            "evidence": [],
+            "checked": true,
+            "note": ""
+          }
+        ]
+      },
+      "dropped": []
+    },
+    {
+      "case_id": "rec-sqli",
+      "kind": "bug",
+      "seconds": 1.44,
+      "error": null,
+      "levels": {
+        "draft": [
+          {
+            "path": "records.py",
+            "line": 382,
+            "severity": "high",
+            "body": "The change replaces safe parameter binding with Python string formatting, which can lead to SQL injection if user-supplied parameters contain malicious content. It also ignores the intended bindparams mechanism and may break queries that rely on SQLAlchemy's parameter handling. Use bindparams or a safe parameter substitution instead.",
+            "evidence": [],
+            "checked": true,
+            "note": ""
+          }
+        ],
+        "after rule check": [
+          {
+            "path": "records.py",
+            "line": 382,
+            "severity": "high",
+            "body": "The change replaces safe parameter binding with Python string formatting, which can lead to SQL injection if user-supplied parameters contain malicious content. It also ignores the intended bindparams mechanism and may break queries that rely on SQLAlchemy's parameter handling. Use bindparams or a safe parameter substitution instead.",
+            "evidence": [],
+            "checked": true,
+            "note": ""
+          }
+        ],
+        "final": [
+          {
+            "path": "records.py",
+            "line": 382,
+            "severity": "high",
+            "body": "The change replaces safe parameter binding with Python string formatting, which can lead to SQL injection if user-supplied parameters contain malicious content. It also ignores the intended bindparams mechanism and may break queries that rely on SQLAlchemy's parameter handling. Use bindparams or a safe parameter substitution instead.",
+            "evidence": [],
+            "checked": true,
+            "note": ""
+          }
+        ]
+      },
+      "dropped": []
+    },
+    {
+      "case_id": "itd-derive",
+      "kind": "bug",
+      "seconds": 2.23,
+      "error": null,
+      "levels": {
+        "draft": [
+          {
+            "path": "src/itsdangerous/signer.py",
+            "line": 196,
+            "severity": "high",
+            "body": "The change replaces the newest key (self.secret_keys[-1]) with the oldest (self.secret_keys[0]) when no secret_key is provided. This breaks key rotation: signatures will be generated with the oldest key, while verification expects the newest key, causing valid tokens to fail verification and potentially exposing a security hole.",
+            "evidence": [
+              "src/itsdangerous/signer.py:L129-L173",
+              "src/itsdangerous/signer.py:L175-L180"
+            ],
+            "checked": true,
+            "note": ""
+          }
+        ],
+        "after rule check": [
+          {
+            "path": "src/itsdangerous/signer.py",
+            "line": 196,
+            "severity": "high",
+            "body": "The change replaces the newest key (self.secret_keys[-1]) with the oldest (self.secret_keys[0]) when no secret_key is provided. This breaks key rotation: signatures will be generated with the oldest key, while verification expects the newest key, causing valid tokens to fail verification and potentially exposing a security hole.",
+            "evidence": [
+              "src/itsdangerous/signer.py:L129-L173",
+              "src/itsdangerous/signer.py:L175-L180"
+            ],
+            "checked": true,
+            "note": ""
+          }
+        ],
+        "final": [
+          {
+            "path": "src/itsdangerous/signer.py",
+            "line": 196,
+            "severity": "high",
+            "body": "The change replaces the newest key (self.secret_keys[-1]) with the oldest (self.secret_keys[0]) when no secret_key is provided. This breaks key rotation: signatures will be generated with the oldest key, while verification expects the newest key, causing valid tokens to fail verification and potentially exposing a security hole.",
+            "evidence": [
+              "src/itsdangerous/signer.py:L129-L173",
+              "src/itsdangerous/signer.py:L175-L180"
+            ],
+            "checked": true,
+            "note": ""
+          }
+        ]
+      },
+      "dropped": []
+    },
+    {
+      "case_id": "itd-expiry",
+      "kind": "bug",
+      "seconds": 1.46,
+      "error": null,
+      "levels": {
+        "draft": [
+          {
+            "path": "src/itsdangerous/timed.py",
+            "line": 141,
+            "severity": "high",
+            "body": "The condition is inverted: it raises SignatureExpired when the age is less than max_age, which is the opposite of the intended behaviour. This causes valid signatures to be rejected and expired ones to be accepted, breaking the max_age logic used by TimedSerializer and TimestampSigner.",
+            "evidence": [],
+            "checked": true,
+            "note": ""
+          }
+        ],
+        "after rule check": [
+          {
+            "path": "src/itsdangerous/timed.py",
+            "line": 141,
+            "severity": "high",
+            "body": "The condition is inverted: it raises SignatureExpired when the age is less than max_age, which is the opposite of the intended behaviour. This causes valid signatures to be rejected and expired ones to be accepted, breaking the max_age logic used by TimedSerializer and TimestampSigner.",
+            "evidence": [],
+            "checked": true,
+            "note": ""
+          }
+        ],
+        "final": [
+          {
+            "path": "src/itsdangerous/timed.py",
+            "line": 141,
+            "severity": "high",
+            "body": "The condition is inverted: it raises SignatureExpired when the age is less than max_age, which is the opposite of the intended behaviour. This causes valid signatures to be rejected and expired ones to be accepted, breaking the max_age logic used by TimedSerializer and TimestampSigner.",
+            "evidence": [],
+            "checked": true,
+            "note": ""
+          }
+        ]
+      },
+      "dropped": []
+    },
+    {
+      "case_id": "wpg-days",
+      "kind": "bug",
+      "seconds": 1.98,
+      "error": null,
+      "levels": {
+        "draft": [
+          {
+            "path": "src/assignment/plan_generator.py",
+            "line": 43,
+            "severity": "high",
+            "body": "The validation now accepts 0 days per week, but the rest of the code and tests expect at least 1 day. Allowing 0 causes generate_workout_plan to proceed to the API call and produce a plan with no training days, which is not intended and breaks the friendly warning logic in the UI and tests.",
+            "evidence": [
+              "src/assignment/plan_generator.py:L86-L134"
+            ],
+            "checked": true,
+            "note": ""
+          }
+        ],
+        "after rule check": [
+          {
+            "path": "src/assignment/plan_generator.py",
+            "line": 43,
+            "severity": "high",
+            "body": "The validation now accepts 0 days per week, but the rest of the code and tests expect at least 1 day. Allowing 0 causes generate_workout_plan to proceed to the API call and produce a plan with no training days, which is not intended and breaks the friendly warning logic in the UI and tests.",
+            "evidence": [
+              "src/assignment/plan_generator.py:L86-L134"
+            ],
+            "checked": true,
+            "note": ""
+          }
+        ],
+        "final": [
+          {
+            "path": "src/assignment/plan_generator.py",
+            "line": 43,
+            "severity": "high",
+            "body": "The validation now accepts 0 days per week, but the rest of the code and tests expect at least 1 day. Allowing 0 causes generate_workout_plan to proceed to the API call and produce a plan with no training days, which is not intended and breaks the friendly warning logic in the UI and tests.",
+            "evidence": [
+              "src/assignment/plan_generator.py:L86-L134"
+            ],
+            "checked": true,
+            "note": ""
+          }
+        ]
+      },
+      "dropped": []
+    },
+    {
+      "case_id": "wpg-clean",
+      "kind": "clean",
+      "seconds": 14.08,
+      "error": null,
+      "levels": {
+        "draft": [
+          {
+            "path": "src/assignment/plan_generator.py",
+            "line": 71,
+            "severity": "high",
+            "body": "The string still references the undefined variable `rest_days` after the refactor. This will raise a NameError when `build_prompt` is called, breaking plan generation. Replace `rest_days` with the new `rest_day_count` variable or remove the old reference.",
+            "evidence": [],
+            "checked": true,
+            "note": ""
+          },
+          {
+            "path": "src/assignment/plan_generator.py",
+            "line": 72,
+            "severity": "low",
+            "body": "The variable `rest_day_count` is defined but never used elsewhere; it is only used in the string on line 72. This is fine but redundant; consider removing the unused variable to avoid confusion.",
+            "evidence": [],
+            "checked": true,
+            "note": ""
+          }
+        ],
+        "after rule check": [
+          {
+            "path": "src/assignment/plan_generator.py",
+            "line": 72,
+            "severity": "low",
+            "body": "The variable `rest_day_count` is defined but never used elsewhere; it is only used in the string on line 72. This is fine but redundant; consider removing the unused variable to avoid confusion.",
+            "evidence": [],
+            "checked": true,
+            "note": ""
+          }
+        ],
+        "final": []
+      },
+      "dropped": [
+        {
+          "reason": "not_an_added_line",
+          "line": 71,
+          "body": "The string still references the undefined variable `rest_days` after the refactor. This will raise a NameError when `build_prompt` is called, breaking plan generation. Replace `rest_days` with the new `rest_day_count` variable or remove the old reference.",
+          "detail": "line 71 is not an added line of src/assignment/plan_generator.py"
+        },
+        {
+          "reason": "unsupported",
+          "line": 72,
+          "body": "The variable `rest_day_count` is defined but never used elsewhere; it is only used in the string on line 72. This is fine but redundant; consider removing the unused variable to avoid confusion.",
+          "detail": "The comment claims rest_day_count is unused, but it is actually used in the string on line 72."
+        }
+      ]
+    },
+    {
+      "case_id": "itd-clean",
+      "kind": "clean",
+      "seconds": 0.74,
+      "error": null,
+      "levels": {
+        "draft": [],
+        "after rule check": [],
+        "final": []
+      },
+      "dropped": []
+    }
+  ]
+}

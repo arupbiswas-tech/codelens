@@ -1,0 +1,70 @@
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-codelens}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-codelens}
+      POSTGRES_DB: ${POSTGRES_DB:-codelens}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Runs once, on first start of an empty volume.
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "127.0.0.1:5432:5432"  # localhost only; the app reaches the db over the Compose network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-codelens} -d ${POSTGRES_DB:-codelens}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+  app:
+    build:
+      context: .
+      target: runtime
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-codelens}:${POSTGRES_PASSWORD:-codelens}@db:5432/${POSTGRES_DB:-codelens}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    env_file:
+      - path: .env
+        required: false
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # Runs the test suite against the real database: `make test`.
+  test:
+    profiles: ["test"]  # only started on demand, never by `make up`
+    build:
+      context: .
+      target: test
+    environment:
+      TEST_DATABASE_URL: postgresql://${POSTGRES_USER:-codelens}:${POSTGRES_PASSWORD:-codelens}@db:5432/${POSTGRES_DB:-codelens}
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # Measures retrieval and answer quality: `make eval`, `make eval-tune`. See eval/README.
+  eval:
+    profiles: ["eval"]  # only started on demand
+    build:
+      context: .
+      target: runtime
+    working_dir: /app
+    entrypoint: ["python", "-m", "codelens.evaluation"]
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-codelens}:${POSTGRES_PASSWORD:-codelens}@db:5432/${POSTGRES_DB:-codelens}
+    env_file:
+      - path: .env
+        required: false
+    volumes:
+      - ./eval:/app/eval  # the questions in, the results out
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:
