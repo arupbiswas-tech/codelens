@@ -1,4 +1,4 @@
-.PHONY: up down logs test lint-fix reset ingest eval eval-tune eval-no-rerank eval-review demo
+.PHONY: up down logs test lint-fix reset ingest eval eval-tune eval-no-rerank eval-review demo diagrams
 
 up:        ## Build and start the app + database
 	docker compose up --build -d
@@ -38,3 +38,6 @@ eval-review: ## Measure the PR reviewer on seeded-bug diffs (needs GROQ_API_KEY)
 demo:      ## Drive the web UI in a headless browser, check it, save screenshots. ARGS=--no-llm | --gif
 	docker compose up -d --build
 	docker run --rm --network codelens_default -v "$(CURDIR):/work" -w /work mcr.microsoft.com/playwright/python:v1.49.0-noble sh -c "pip install -q playwright==1.49.0 pillow && python tools/demo.py $(ARGS)"
+
+diagrams:  ## Check the Mermaid diagrams in docs/ARCHITECTURE.md and render them to docs/diagrams/*.png
+	docker run --rm -v "$(CURDIR):/work" -w /work mcr.microsoft.com/playwright/python:v1.49.0-noble sh -c "pip install -q playwright==1.49.0 && python tools/render_diagrams.py"

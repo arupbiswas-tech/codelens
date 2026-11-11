@@ -4,6 +4,8 @@ This guide takes you from nothing to a working app, then walks through scenarios
 
 ![CodeLens demo](demo.gif)
 
+> Want to understand how it works inside before running it? Read [ARCHITECTURE.md](ARCHITECTURE.md): data flow diagrams from the big picture down to every step.
+
 **Contents**
 1. [What you need](#1-what-you-need)
 2. [Set it up (7 steps)](#2-set-it-up-7-steps)
@@ -174,6 +176,78 @@ SELECT path, symbol FROM chunks WHERE fts @@ plainto_tsquery('simple', 'rollback
 
 ### Connect a GUI client (DBeaver, pgAdmin, TablePlus)
 Host `localhost`, port `5432`, database `codelens`, user `codelens`, password = your `POSTGRES_PASSWORD`. (SSL off, since it is a local connection.)
+
+### Browse and visualize the vector data in pgAdmin
+
+**1. Connect.** Install pgAdmin 4 from <https://www.pgadmin.org/download/>, then *Servers, Register, Server...*:
+
+| Tab | Field | Value |
+|---|---|---|
+| General | Name | `CodeLens` |
+| Connection | Host name/address | `127.0.0.1` (not `localhost`: that tries IPv6 `::1` first, which is not published, and waits for a timeout) |
+| Connection | Port | `5432` |
+| Connection | Maintenance database | `codelens` |
+| Connection | Username | `codelens` |
+| Connection | Password | your `POSTGRES_PASSWORD` from `.env` |
+| SSL | SSL mode | `Disable` |
+
+The stack must be running (`docker compose up -d`). The database port is published on `127.0.0.1` only, so only your own computer can connect. (If you would rather not install anything, run pgAdmin as a container on the same network and register the server with host **`db`** instead of `localhost`: `docker run -d --name pgadmin --network codelens_default -p 5050:80 -e PGADMIN_DEFAULT_EMAIL=you@example.com -e PGADMIN_DEFAULT_PASSWORD=choose-one dpage/pgadmin4`, then open <http://localhost:5050>.)
+
+**2. Find the data.** In the tree: *Servers, CodeLens, Databases, codelens, Schemas, public, Tables*. The tables are `repos` and `chunks`; under *Extensions* you should see `vector`. Right-click `chunks`, *View/Edit Data, First 100 Rows*. The `embedding` column shows as a long text like `[-0.035,0.0057,...]`. Right-click the `codelens` database and choose *ERD For Database* for a diagram of the two tables.
+
+**3. Run these in the Query Tool** (*Tools, Query Tool*). The first three were run against the real database for this guide:
+
+```sql
+-- What an embedding is: 384 numbers, each vector scaled to length 1
+SELECT symbol, vector_dims(embedding) AS dims,
+       round(vector_norm(embedding)::numeric, 4) AS norm,
+       left(embedding::text, 70) || '...' AS first_values
+FROM chunks WHERE symbol = 'RecordCollection.one';
+```
+
+```sql
+-- The code CLOSEST IN MEANING to one function (what vector search does, in SQL).
+-- <=> is cosine distance; because the vectors have length 1, similarity = 1 - distance.
+WITH repo AS (SELECT id FROM repos WHERE name = 'kennethreitz/records'),
+     q AS (SELECT embedding FROM chunks
+           WHERE repo_id = (SELECT id FROM repo) AND symbol = 'RecordCollection.one' LIMIT 1)
+SELECT c.symbol, c.path || ':L' || c.start_line || '-L' || c.end_line AS citation,
+       round((1 - (c.embedding <=> q.embedding))::numeric, 3) AS similarity
+FROM chunks c, q WHERE c.repo_id = (SELECT id FROM repo)
+ORDER BY c.embedding <=> q.embedding LIMIT 8;
+```
+```
+ RecordCollection.one                                    | records.py:L233-L250          | 1.000
+ RecordCollection.first                                  | records.py:L212-L231          | 0.944
+ TestRecordCollection.test_one_returns_a_single_record   | tests/test_records.py:L87-L89 | 0.851
+ RecordCollection.scalar                                 | records.py:L252-L255          | 0.851
+```
+The closest neighbour is `first`, its sibling, then the tests that exercise `one`. That is the model grouping code by meaning.
+
+```sql
+-- The 384 numbers as rows, to chart one embedding (dimension on x, value on y)
+SELECT i AS dimension, v AS value
+FROM chunks c, unnest(c.embedding::real[]) WITH ORDINALITY AS t(v, i)
+WHERE c.symbol = 'RecordCollection.one' ORDER BY i;
+```
+
+```sql
+-- How the repo is split up (good for a bar chart)
+SELECT kind, count(*) AS chunks FROM chunks c JOIN repos r ON r.id = c.repo_id
+WHERE r.name = 'kennethreitz/records' GROUP BY kind ORDER BY 2 DESC;
+```
+
+**4. Chart a result.** In the Query Tool results, recent pgAdmin versions have a **Graph Visualiser** option next to *Data Output* (choose a chart type, an X column and a Y column; a bar chart suits the last query, a line chart the 384-values query). If your version does not have it, use *Save results to file* (CSV) and open it in a spreadsheet. *(I could not run pgAdmin itself while writing this, so the menu names come from its documentation; the SQL above is verified.)*
+
+**5. A real "map" of the embeddings.** pgAdmin cannot plot 384 dimensions. [`tools/plot_embeddings.py`](../tools/plot_embeddings.py) squeezes them to 2 with PCA and draws one dot per chunk, coloured by file or kind. Run it in a throwaway container (nothing to install; use your own `POSTGRES_PASSWORD`):
+```bash
+docker run --rm --network codelens_default -v "$PWD:/work" -w /work \
+  -e DATABASE_URL=postgresql://codelens:YOUR_PASSWORD@db:5432/codelens python:3.12-slim \
+  sh -c "pip install -q 'psycopg[binary]' numpy scikit-learn matplotlib && python tools/plot_embeddings.py pallets/itsdangerous"
+```
+It writes `docs/embeddings-pallets-itsdangerous.png`: the test files form their own clusters, and `encoding.py` sits apart from the rest. Distances on the picture are only an approximation (2 of 384 dimensions, about 18% of the variance), so read it as "these chunks are neighbours", not as exact distances.
+
+![Embedding map of pallets/itsdangerous](embeddings-pallets-itsdangerous.png)
 
 ### Back up and restore
 ```bash
@@ -490,6 +564,7 @@ WHERE r.name = 'kennethreitz/records' AND path = 'records.py' AND start_line = 2
 | Indexing says `Repository is larger than 200 MB` or `has N chunks; the limit is 5000` | Deliberate limits (`MAX_REPO_BYTES` in `cloner.py`, `MAX_CHUNKS_PER_REPO` in `.env`). |
 | Review says `'owner/repo' is not indexed` | Index it first (Scenario 2). The name must match, for example `kennethreitz/records`. |
 | Review finds nothing in a PR that clearly has a bug | It only comments on lines the PR **added** (a pure deletion cannot be commented on), it skips non-code files, and one run is one sample of a language model. See `files_skipped` in the result. |
+| pgAdmin, DBeaver or the browser says *"server closed the connection unexpectedly"* or *"empty reply from server"*, but `docker compose ps` shows `(healthy)` | **Docker Desktop's port forwarding has gone stale** (typical after Windows sleep or hibernate, or after stopping and restarting a container). The container is fine, but the forwarded port from your computer is not. Check by running `docker compose exec db pg_isready`: if that says "accepting connections" while pgAdmin fails, this is the cause. Fix: `docker compose up -d --force-recreate` (data is kept in the volume), or restart Docker Desktop. |
 | Schema errors after pulling a newer version | `db/init.sql` changed: `docker compose down -v`, `docker compose up -d`, re-index. |
 | Everything is slow the first time | The first `docker compose up --build` downloads the two models. Later starts take seconds. |
 | `make: command not found` (Windows) | Use the `docker compose` equivalents shown next to each `make` command. |

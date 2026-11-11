@@ -64,6 +64,16 @@ Each comment sits on a line the pull request really added (`line` is a line of t
 
 `/health` says the process is alive. `/ready` also checks the database and the pgvector extension, and returns 503 if either is missing.
 
+## How it works
+
+![The big picture](docs/diagrams/01-the-big-picture.png)
+
+The idea behind everything: **prepare the code once, then use it on every request.** Indexing cuts a repository into chunks and gives each one a "meaning vector". Asking a question or reviewing a pull request first *finds the few chunks that matter*, then asks the language model with only those, then *checks* what it said against the code it saw.
+
+![Prepare once, use on every request](docs/diagrams/02-the-three-main-flows.png)
+
+**[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** has the full set of data flow diagrams: indexing step by step, how an answer is found and verified, how a pull request review loop works, the GitHub Action, what is stored, and what runs where. Each diagram comes with a table explaining *why* every step exists.
+
 ## Evaluation
 
 Measured on 29 hand-written questions over 4 public repos (26 answerable, 3 not). Every question is labelled with the code that answers it. Full method, limits and how to add questions: [eval/README.md](eval/README.md). Reasoning and trade-offs: [DECISIONS.md](DECISIONS.md) #23-28 (questions and answers) and #35-36 (reviewer).
@@ -156,8 +166,8 @@ src/codelens/
     models.py       Chunk (with file:line citation) and IngestResult
   evaluation/       dataset + metrics + judge + runner for `make eval`; reviews.py for `make eval-review`
 scripts/            download_models.py (docker build), post_review.py (the GitHub Action)
-tools/              demo.py (headless-browser UI check, screenshots and the demo GIF)
-docs/               RUNNING.md (setup and scenarios), demo.gif, screens/
+tools/              demo.py (headless-browser UI check), render_diagrams.py (Mermaid to PNG), plot_embeddings.py
+docs/               RUNNING.md (setup and scenarios), ARCHITECTURE.md (data flow diagrams), demo.gif, screens/, diagrams/
 .github/workflows/  ci.yml (tests), codelens-review.yml (reviews pull requests)
 eval/               questions.json + review_cases.json (test sets), make_review_cases.py, README, results/
 db/init.sql         schema (repos, chunks, pgvector + full-text indexes)
